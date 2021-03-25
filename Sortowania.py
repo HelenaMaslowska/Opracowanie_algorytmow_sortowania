@@ -10,7 +10,8 @@ import sys
 from random import randint
 import random
 
-sys.setrecursionlimit(90000)
+sys.setrecursionlimit(1000000)
+
 
 def posortowane_rosnaco(n):
     tab = []
@@ -18,6 +19,7 @@ def posortowane_rosnaco(n):
         tab.append(random.randint(1, 1000))
     tab = sorted(tab)
     return tab
+
 
 def posortowane_malejaco(n):
     tab = []
@@ -37,17 +39,20 @@ def posortowane_malejaco(n):
             x = x + 1
     return tab
 
+
 def posortowane_stale(n):
     tab = []
     for i in range(n):
         tab.append(50)
     return tab
 
+
 def posortowane_nie(n):
     tab = []
     for i in range(n):
         tab.append(random.randint(1, 1000))
     return tab
+
 
 def posortowane_V(n):
     tab = []
@@ -71,6 +76,7 @@ def posortowane_V(n):
     for i in range(n - m):
         tab.append(tab2[i])
     return tab
+
 
 def posortowane_A(n):
     tab = []
@@ -98,10 +104,10 @@ def posortowane_A(n):
 
 def Bubble_Sort(n, tab):
     start_time = time.time()
-    for i in range(n - 1):
-        for j in range(i + 1, n):
-            if tab[i] > tab[j]:
-                tab[i], tab[j] = tab[j], tab[i]
+    for j in range(n - 1):
+        for i in range(n - 1):
+            if tab[i] > tab[i + 1]:
+                tab[i], tab[i + 1] = tab[i + 1], tab[i]
     print(", %s " % (time.time() - start_time))
 
 def Selection_Sort(n, tab):
@@ -114,37 +120,36 @@ def Selection_Sort(n, tab):
         tab[p_min], tab[i] = tab[i], tab[p_min]
     print(", %s " % (time.time() - start_time))
 
-def podziel_tablice(pocz, kon, tab):
+def podzial(tab, pocz, kon):
+    pivot = tab[(pocz + kon) // 2]
     i = pocz - 1
-    pivot = tab[kon]
-    for j in range(pocz, kon):
-        if tab[j] <= pivot:
-            i = i + 1
-            tab[i], tab[j] = tab[j], tab[i]
-    tab[i + 1], tab[kon] = tab[kon], tab[i + 1]
-    return i + 1
-
-def quick(pocz, kon, tab):
-    if len(tab) == 1:
-        return tab
-    if pocz < kon:
-        piw = podziel_tablice(pocz, kon, tab)
-        quick(pocz, piw - 1, tab)
-        quick(piw + 1, kon, tab)
-
+    j = kon + 1
+    while 1:
+        i += 1
+        while tab[i] < pivot:
+            i += 1
+        j -= 1
+        while tab[j] > pivot:
+            j -= 1
+        if i >= j:
+            return j
+        tab[i], tab[j] = tab[j], tab[i]
+def quick_sort(pocz, kon, tab):
+    if pocz < high:
+        p = podzial(tab, pocz, kon)
+        quick_sort(pocz, p, tab)
+        quick_sort(p + 1, kon, tab)
 def Quick_Sort(n, tab):
     start_time = time.time()
-    pocz = 0
-    kon = n - 1
-    quick(pocz, kon, tab)
+    tab = quick_sort(0, n-1, tab)
     print(", %s " % (time.time() - start_time))
 
 def glowny_merge(pocz, sr, kon, tab, n):
     c_tab = [0 for _ in range(n)]
-    for i in range(pocz, kon+1):
+    for i in range(pocz, kon + 1):
         c_tab[i] = tab[i]
     i = pocz
-    j = sr+1
+    j = sr + 1
     q = pocz
     while i <= sr & j <= kon:
         if c_tab[i] < c_tab[j]:
@@ -159,18 +164,16 @@ def glowny_merge(pocz, sr, kon, tab, n):
             tab[q] = c_tab[i]
             q = q + 1
             i = i + 1
-
 def merge(pocz, kon, tab, n):
     if pocz < kon:
-        sr = (pocz+kon) // 2
+        sr = (pocz + kon) // 2
         merge(pocz, sr, tab, n)
-        merge(sr+1, kon, tab, n)
+        merge(sr + 1, kon, tab, n)
         glowny_merge(pocz, sr, kon, tab, n)
-
 def Merge_Sort(n, tab):
     start_time = time.time()
     pocz = 0
-    kon = n-1
+    kon = n - 1
     merge(pocz, kon, tab, n)
     print(", %s " % (time.time() - start_time))
 
@@ -179,20 +182,21 @@ def Counting_Sort(n, tab):
     max_wart = tab[0]
     if max(tab):
         max_wart = max(tab)
-    pom_tab = [0 for _ in range(max_wart+1)]
+    pom_tab = [0 for _ in range(max_wart + 1)]
     for i in range(n):
         pom_tab[tab[i]] = pom_tab[tab[i]] + 1
     x = 0
-    for i in range(max_wart+1):
+    for i in range(max_wart + 1):
         for j in range(pom_tab[i]):
             tab[x] = i
             x = x + 1
     print(", %s " % (time.time() - start_time))
 
 
+elementy = [10, 100, 1000, 2000, 3000, 5000, 10000]
 
 def badanie_Bubble_Sort():
-    for n in [10, 100, 1000, 2000, 5000, 10000]:
+    for n in elementy:
         tab = posortowane_nie(n)
         print("Bubble Sort, nieposortowane,", n, end="")
         Bubble_Sort(n, tab)
@@ -213,7 +217,7 @@ def badanie_Bubble_Sort():
         Bubble_Sort(n, tab)
 
 def badanie_Selection_Sort():
-    for n in [10, 100, 1000, 2000, 5000, 10000]:
+    for n in elementy:
         tab = posortowane_nie(n)
         print("Selection Sort, nieposortowane,", n, end="")
         Selection_Sort(n, tab)
@@ -234,7 +238,7 @@ def badanie_Selection_Sort():
         Selection_Sort(n, tab)
 
 def badanie_Quick_Sort():
-    for n in [10, 100, 1000, 2000, 5000]:
+    for n in elementy:
         tab = posortowane_nie(n)
         print("Quick Sort, nieposortowane,", n, end="")
         Quick_Sort(n, tab)
@@ -255,7 +259,7 @@ def badanie_Quick_Sort():
         Quick_Sort(n, tab)
 
 def badanie_Merge_Sort():
-    for n in [10, 100, 1000, 2000, 5000, 10000]:
+    for n in elementy:
         tab = posortowane_nie(n)
         print("Merge Sort, nieposortowane,", n, end="")
         Merge_Sort(n, tab)
@@ -276,7 +280,7 @@ def badanie_Merge_Sort():
         Merge_Sort(n, tab)
 
 def badanie_Counting_Sort():
-    for n in [10, 100, 1000, 2000, 5000, 10000]:
+    for n in elementy:
         tab = posortowane_nie(n)
         print("Counting Sort, nieposortowane,", n, end="")
         Counting_Sort(n, tab)
