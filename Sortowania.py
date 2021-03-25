@@ -302,11 +302,11 @@ def badanie_Counting_Sort():
 
 
 for w in range(15):
-  #  badanie_Bubble_Sort()
-  #  badanie_Selection_Sort()
+    badanie_Bubble_Sort()
+    badanie_Selection_Sort()
     badanie_Quick_Sort()
-  #  badanie_Merge_Sort()
-  #  badanie_Counting_Sort()
+    badanie_Merge_Sort()
+    badanie_Counting_Sort()
 
 print()
 
