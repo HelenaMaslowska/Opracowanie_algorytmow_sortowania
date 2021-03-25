@@ -135,13 +135,13 @@ def podzial(tab, pocz, kon):
             return j
         tab[i], tab[j] = tab[j], tab[i]
 def quick_sort(pocz, kon, tab):
-    if pocz < kon:
+    if pocz < high:
         p = podzial(tab, pocz, kon)
         quick_sort(pocz, p, tab)
         quick_sort(p + 1, kon, tab)
 def Quick_Sort(n, tab):
     start_time = time.time()
-    quick_sort(0, n-1, tab)
+    tab = quick_sort(0, n-1, tab)
     print(", %s " % (time.time() - start_time))
 
 def glowny_merge(pocz, sr, kon, tab, n):
@@ -302,11 +302,11 @@ def badanie_Counting_Sort():
 
 
 for w in range(15):
-  #  badanie_Bubble_Sort()
-  #  badanie_Selection_Sort()
+    badanie_Bubble_Sort()
+    badanie_Selection_Sort()
     badanie_Quick_Sort()
-  #  badanie_Merge_Sort()
-  #  badanie_Counting_Sort()
+    badanie_Merge_Sort()
+    badanie_Counting_Sort()
 
 print()
 
