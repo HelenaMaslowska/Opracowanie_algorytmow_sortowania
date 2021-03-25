@@ -1,4 +1,4 @@
-# Opracowanie_algorytmow_sortowania
+# Opracowanie algorytmow sortowania
 *Helena Masłowska, 148182, kierunek Informatyka, 2 sem.*
 
 
