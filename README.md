@@ -1,5 +1,5 @@
 # Opracowanie algorytmow sortowania
-*Helena Masłowska, 148182, kierunek Informatyka, 2 sem.*
+
 
 
 Link do opracowania:
@@ -11,3 +11,5 @@ Sortowania:
 Dane do badań:
 * [Wyniki](wyniki.txt)
 
+## Opracowała
+Helena Masłowska, 2021
